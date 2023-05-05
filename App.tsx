@@ -7,7 +7,8 @@
 
 import React from 'react';
 
-import Welcome from './src/screens/welcome/welcome';
+import WelcomeScreen from './src/screens/welcome/WelcomeScreen';
+import LoginScreen from './src/screens/auth/LoginScreen';
 import Home from './src/screens/home/home';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -21,7 +22,8 @@ function App(): JSX.Element {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Welcome" component={Welcome} />
+        <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
       {/* <SafeAreaView style={backgroundStyle}>

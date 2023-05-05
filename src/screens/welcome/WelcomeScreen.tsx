@@ -8,8 +8,9 @@ import {
   NativeBaseProvider,
   extendTheme,
 } from 'native-base';
+import KitStyles from '../../styles/kit.style';
 
-function Welcome({navigation}: any): JSX.Element {
+function WelcomeScreen({navigation}: any): JSX.Element {
   const theme = extendTheme({
     fontConfig: {
       Roboto: {
@@ -68,10 +69,12 @@ function Welcome({navigation}: any): JSX.Element {
             </Text>
           </Center>
           <Button
-            style={styles.getStartedBtn}
+            style={KitStyles.primaryBtn}
             endIcon={<ArrowForwardIcon />}
-            onPress={() => navigation.navigate('Home', {name: 'Jane'})}>
-            <Text style={styles.textInsideBtn}>get started</Text>
+            onPress={() =>
+              navigation.navigate('LoginScreen', {name: 'LoginScreen'})
+            }>
+            <Text style={KitStyles.textInsideBtn}>get started</Text>
           </Button>
           <Text style={styles.appDevBy}>DEVELOPED BY</Text>
           <Text style={styles.appSponsor}>
@@ -142,23 +145,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-
-  getStartedBtn: {
-    marginTop: 10,
-    marginBottom: 10,
-    width: '80%',
-    height: 50,
-    backgroundColor: '#007A52',
-  },
-
-  textInsideBtn: {
-    color: '#ffffff',
-    textTransform: 'uppercase',
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-
-  welcomePage: {},
 });
 
-export default Welcome;
+export default WelcomeScreen;

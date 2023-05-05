@@ -13,7 +13,7 @@ function Welcome({navigation}: WelcomeProps): JSX.Element {
     <View>
       <NativeBaseProvider>
         <Button
-          onPress={() => navigation.navigate('Welcome', {name: 'Jane'})}
+          onPress={() => navigation.navigate('WelcomeScreen', {name: 'Jane'})}
         />
       </NativeBaseProvider>
     </View>

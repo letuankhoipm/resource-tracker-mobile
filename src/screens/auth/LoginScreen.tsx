@@ -10,6 +10,8 @@ import {
   theme,
 } from 'native-base';
 import KitStyles from '../../styles/kit.style';
+import {LoginPayload} from '../../types/payload.type';
+import authService from '../../services/auth.service';
 
 interface NavigationProps {
   navigation: any;
@@ -17,9 +19,25 @@ interface NavigationProps {
 
 function LoginScreen({navigation}: NavigationProps): JSX.Element {
   const [show, setShow] = React.useState(false);
+  const [identity, onChangeIdentity] = React.useState('');
+  const [password, onChangePassword] = React.useState('');
+
   const onLogin = () => {
-    navigation.navigate('WelcomeScreen', {name: 'WelcomeScreen'});
+    console.log(identity, password);
+    const payload: LoginPayload = {
+      CCCD: identity,
+      password: password,
+    };
+    authService.login(payload).then((res: any) => {
+      console.log(res);
+      const {token} = res;
+      if (!token) {
+        return;
+      }
+      navigation.navigate('WelcomeScreen', {name: 'WelcomeScreen'});
+    });
   };
+
   return (
     <NativeBaseProvider theme={theme}>
       <ImageBackground
@@ -34,11 +52,15 @@ function LoginScreen({navigation}: NavigationProps): JSX.Element {
                 style={KitStyles.defaultInput}
                 variant="underlined"
                 placeholder="Identity"
+                value={identity}
+                onChangeText={onChangeIdentity}
               />
               <Input
                 variant="underlined"
                 style={KitStyles.defaultInput}
                 type={show ? 'text' : 'password'}
+                value={password}
+                onChangeText={onChangePassword}
                 InputRightElement={
                   <Pressable onPress={() => setShow(!show)}>
                     <SunIcon />

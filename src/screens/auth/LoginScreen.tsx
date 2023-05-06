@@ -10,7 +10,7 @@ import {
   theme,
 } from 'native-base';
 import KitStyles from '../../styles/kit.style';
-import {LoginPayload} from '../../types/payload.type';
+import {LoginPayload} from '../../model/common/payload.model';
 import authService from '../../services/auth.service';
 
 interface NavigationProps {

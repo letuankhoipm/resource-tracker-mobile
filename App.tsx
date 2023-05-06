@@ -12,21 +12,24 @@ import LoginScreen from './src/screens/auth/LoginScreen';
 import Home from './src/screens/home/home';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Provider} from 'react-redux';
+import store from './src/redux';
 
 function App(): JSX.Element {
   const Stack = createNativeStackNavigator();
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="Home" component={Home} />
-      </Stack.Navigator>
-      {/* <SafeAreaView style={backgroundStyle}>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="Home" component={Home} />
+        </Stack.Navigator>
+        {/* <SafeAreaView style={backgroundStyle}>
         <StatusBar
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}
@@ -37,7 +40,8 @@ function App(): JSX.Element {
           <Header />
         </ScrollView>
       </SafeAreaView> */}
-    </NavigationContainer>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

@@ -1,88 +1,31 @@
 import React from 'react';
 import {View, Text, StyleSheet, ImageBackground} from 'react-native';
-import {
-  ArrowForwardIcon,
-  Button,
-  Center,
-  Image,
-  NativeBaseProvider,
-  extendTheme,
-} from 'native-base';
-import KitStyles from '../../styles/kit.style';
+import {Center, Image} from 'native-base';
 
-function WelcomeScreen({navigation}: any): JSX.Element {
-  const theme = extendTheme({
-    fontConfig: {
-      Roboto: {
-        100: {
-          normal: 'Roboto-Light',
-          italic: 'Roboto-LightItalic',
-        },
-        200: {
-          normal: 'Roboto-Light',
-          italic: 'Roboto-LightItalic',
-        },
-        300: {
-          normal: 'Roboto-Light',
-          italic: 'Roboto-LightItalic',
-        },
-        400: {
-          normal: 'Roboto-Regular',
-          italic: 'Roboto-Italic',
-        },
-        500: {
-          normal: 'Roboto-Medium',
-        },
-        600: {
-          normal: 'Roboto-Medium',
-          italic: 'Roboto-MediumItalic',
-        },
-      },
-    },
-
-    fonts: {
-      heading: 'Roboto',
-      body: 'Roboto',
-      mono: 'Roboto',
-    },
-  });
+function WelcomeScreen(): JSX.Element {
   return (
-    <NativeBaseProvider theme={theme}>
-      <ImageBackground
-        source={require('../../assets/bg.png')}
-        resizeMode="cover"
-        style={styles.appBg}>
-        <Text style={styles.appVersion}>v0.1-beta</Text>
-        <View style={styles.appContainer}>
-          <Center height="85%" width="100%" shadow={2}>
-            <Image
-              style={styles.appLogo}
-              source={require('../../assets/logo.png')}
-              alt="logo_qkit"
-              size="xl"
-            />
-            <Text style={styles.appSubtitle}>Welcome</Text>
-            <Text style={styles.appNameTitle}>Home Page</Text>
-            <Text style={styles.appIntro}>
-              Discover application and send LEAVE REQUEST of everyday. Available
-              on Mobile
-            </Text>
-          </Center>
-          <Button
-            style={KitStyles.primaryBtn}
-            endIcon={<ArrowForwardIcon />}
-            onPress={() =>
-              navigation.navigate('LoginScreen', {name: 'LoginScreen'})
-            }>
-            <Text style={KitStyles.textInsideBtn}>get started</Text>
-          </Button>
-          <Text style={styles.appDevBy}>DEVELOPED BY</Text>
-          <Text style={styles.appSponsor}>
-            qkit software © 2023 all rights reserved.
+    <ImageBackground
+      source={require('../../assets/bg.png')}
+      resizeMode="cover"
+      style={styles.appBg}>
+      <Text style={styles.appVersion}>v0.1-beta</Text>
+      <View style={styles.appContainer}>
+        <Center height="85%" width="100%" shadow={2}>
+          <Image
+            style={styles.appLogo}
+            source={require('../../assets/logo.png')}
+            alt="logo_qkit"
+            size="xl"
+          />
+          <Text style={styles.appSubtitle}>Welcome</Text>
+          <Text style={styles.appNameTitle}>Home Page</Text>
+          <Text style={styles.appIntro}>
+            Discover application and send LEAVE REQUEST of everyday. Available
+            on Mobile
           </Text>
-        </View>
-      </ImageBackground>
-    </NativeBaseProvider>
+        </Center>
+      </View>
+    </ImageBackground>
   );
 }
 

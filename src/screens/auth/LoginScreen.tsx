@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {ImageBackground, Text, View, StyleSheet, Pressable} from 'react-native';
 import {
   SunIcon,
@@ -10,32 +10,33 @@ import {
   theme,
 } from 'native-base';
 import KitStyles from '../../styles/kit.style';
+import {actLogin} from '../../redux/actions/auth.action';
 import {LoginPayload} from '../../model/common/payload.model';
-import authService from '../../services/auth.service';
+import {useAppDispatch, useAppSelector} from '../../redux/hook';
 
 interface NavigationProps {
   navigation: any;
 }
 
 function LoginScreen({navigation}: NavigationProps): JSX.Element {
+  useEffect(() => {
+    if (access_certificate) {
+      navigation.navigate('HomeScreen', {name: 'HomeScreen'});
+    }
+  });
+
   const [show, setShow] = React.useState(false);
-  const [identity, onChangeIdentity] = React.useState('');
-  const [password, onChangePassword] = React.useState('');
+  const [identity, onChangeIdentity] = useState('');
+  const [password, onChangePassword] = useState('');
+  const dispatch = useAppDispatch();
+  const access_certificate = useAppSelector(state => state.authReducer.token);
 
   const onLogin = () => {
-    console.log(identity, password);
     const payload: LoginPayload = {
       CCCD: identity,
       password: password,
     };
-    authService.login(payload).then((res: any) => {
-      console.log(res);
-      const {token} = res;
-      if (!token) {
-        return;
-      }
-      navigation.navigate('WelcomeScreen', {name: 'WelcomeScreen'});
-    });
+    dispatch(actLogin(payload));
   };
 
   return (
@@ -71,7 +72,7 @@ function LoginScreen({navigation}: NavigationProps): JSX.Element {
             </Stack>
             ;
           </Center>
-          <Button style={KitStyles.primaryBtn} onPress={() => onLogin()}>
+          <Button style={KitStyles.primaryBtn} onPress={onLogin}>
             <Text style={KitStyles.textInsideBtn}>login</Text>
           </Button>
           <Text style={styles.appDevBy}>DEVELOPED BY</Text>

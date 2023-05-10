@@ -12,6 +12,7 @@ class AuthService {
     };
     return HttpClient.post(params);
   }
+
   public logout(): void {
     return;
   }

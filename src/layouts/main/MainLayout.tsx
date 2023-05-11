@@ -5,20 +5,40 @@ import WelcomeScreen from '../../screens/welcome/WelcomeScreen';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Text} from 'native-base';
 
 const {width} = Dimensions.get('window');
 
 interface NavigationProps {
   navigation: any;
   state: any;
+  descriptors: any;
+}
+function generateLabel(name: string): string {
+  switch (name) {
+    case 'home-variant-outline':
+      return 'Home';
+    case 'email-send-outline':
+      return 'Request';
+    case 'account-outline':
+      return 'Profile';
+    case 'cog-outline':
+      return 'Settings';
+
+    default:
+      return '';
+  }
 }
 
-function TabBar({state, navigation}: NavigationProps): JSX.Element {
+function TabBar(props: NavigationProps): JSX.Element {
+  const {state, navigation} = props;
+
   return (
     <View style={styles.mainContainer}>
       {state.routes.map((route: any, index: number) => {
         const isFocused = state.index === index;
-        const label = route.name;
+        const icon = route.name;
+        const label = generateLabel(route.name);
 
         const onPress = () => {
           const event = navigation.emit({
@@ -33,15 +53,18 @@ function TabBar({state, navigation}: NavigationProps): JSX.Element {
 
         return (
           <View key={index} style={[styles.mainItemContainer]}>
-            <Pressable
-              onPress={onPress}
-              style={isFocused ? styles.pressableBtn : styles.pressableBtn}>
+            <Pressable onPress={onPress}>
               <View style={styles.insidePressable}>
                 <MaterialCommunityIcons
-                  name={label}
-                  size={20}
-                  color="#007A52"
+                  name={icon}
+                  size={28}
+                  color={isFocused ? '#42BFB0' : '#485370'}
                 />
+                <Text
+                  color={isFocused ? '#42BFB0' : '#485370'}
+                  style={styles.textNavigate}>
+                  {label}
+                </Text>
               </View>
             </Pressable>
           </View>
@@ -62,10 +85,10 @@ function MainLayout(): JSX.Element {
       screenOptions={{
         headerShown: false,
       }}>
-      <Tab.Screen name="home" component={HomeScreen} />
-      <Tab.Screen name="email-send" component={WelcomeScreen} />
-      <Tab.Screen name="account" component={WelcomeScreen} />
-      <Tab.Screen name="cog" component={WelcomeScreen} />
+      <Tab.Screen name="home-variant-outline" component={HomeScreen} />
+      <Tab.Screen name="email-send-outline" component={WelcomeScreen} />
+      <Tab.Screen name="account-outline" component={WelcomeScreen} />
+      <Tab.Screen name="cog-outline" component={WelcomeScreen} />
     </Tab.Navigator>
   );
 }
@@ -74,8 +97,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     position: 'absolute',
     bottom: 20,
-    backgroundColor: '#e3e3e3',
-    borderRadius: 20,
+    backgroundColor: '#202938',
+    borderRadius: 10,
     marginHorizontal: width * 0.05,
   },
   mainItemContainer: {
@@ -89,7 +112,7 @@ const styles = StyleSheet.create({
 
   pressableBtn: {
     borderRadius: 20,
-    backgroundColor: 'transparent',
+    backgroundColor: 'red',
   },
 
   insidePressable: {
@@ -97,6 +120,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     padding: 15,
+  },
+
+  textNavigate: {
+    fontWeight: 'bold',
   },
 });
 

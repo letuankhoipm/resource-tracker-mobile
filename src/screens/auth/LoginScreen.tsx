@@ -75,13 +75,13 @@ function LoginScreen({navigation}: NavigationProps): JSX.Element {
           <Button style={KitStyles.primaryBtn} onPress={onLogin}>
             <Text style={KitStyles.textInsideBtn}>login</Text>
           </Button>
-          {/* <Button
+          <Button
             style={KitStyles.primaryBtn}
             onPress={() => {
               navigation.navigate('MainLayout', {name: 'MainLayout'});
             }}>
             <Text style={KitStyles.textInsideBtn}>test</Text>
-          </Button> */}
+          </Button>
           <Text style={styles.appDevBy}>DEVELOPED BY</Text>
           <Text style={styles.appSponsor}>
             qkit software © 2023 all rights reserved.

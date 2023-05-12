@@ -10,6 +10,7 @@ import {
   Select,
   Text,
   TextArea,
+  useToast,
 } from 'native-base';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Platform, Pressable, StyleSheet, View} from 'react-native';
@@ -18,6 +19,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useAppDispatch} from '../../redux/hook';
 import referenceService from '../../services/reference.service';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {LeaveRequestPayload} from '../../model/common/payload.model';
+import moment from 'moment';
+import requestService from '../../services/request.service';
 
 function RequestScreen({navigation}: any): JSX.Element {
   const dispatch = useAppDispatch();
@@ -26,12 +30,15 @@ function RequestScreen({navigation}: any): JSX.Element {
   }, [dispatch]);
 
   const [listWorkingType, setListWorkingType] = useState([]);
+  const [listWorkingOptionType, setListWorkingOptionType] = useState([]);
   const [workingType, setWorkingType] = useState('ux');
-  const [dateFrom, setDateFrom] = useState(new Date(1598051730000));
-  const [dateTo, setDateTo] = useState(new Date(1598051730000));
+  const [workingOptionType, setWorkingOptionType] = useState('ux');
+  const [dateFrom, setDateFrom] = useState(new Date());
+  const [dateTo, setDateTo] = useState(new Date());
   const [showDateFrom, setShowDateFrom] = useState(false);
   const [showDateTo, setShowTo] = useState(false);
   const [reason, setReason] = useState('');
+  const toast = useToast();
 
   const getListWorkingType = (): void => {
     referenceService.getRefsData('working-types').then((res: any) => {
@@ -39,15 +46,31 @@ function RequestScreen({navigation}: any): JSX.Element {
     });
   };
 
-  const onChangeType = (value: string) => {
-    setWorkingType(value);
+  const getWorkingTypeOption = (typeId: string): void => {
+    if (!typeId) {
+      return;
+    }
+    referenceService.getRefsById('working-types', typeId).then((res: any) => {
+      console.log(res);
+      setListWorkingOptionType(res.workingTypeOptions);
+      setWorkingOptionType(res.workingTypeOptions[0]);
+    });
   };
 
-  const showDateToPicker = () => {
-    showModeFrom();
+  const onChangeWorkingType = (value: string) => {
+    setWorkingType(value);
+    getWorkingTypeOption(value);
+  };
+
+  const onChangeWorkingOption = (value: string) => {
+    setWorkingOptionType(value);
   };
 
   const showDateFromPicker = () => {
+    showModeFrom();
+  };
+
+  const showDateToPicker = () => {
     showModeTo();
   };
 
@@ -79,8 +102,41 @@ function RequestScreen({navigation}: any): JSX.Element {
     navigation.goBack();
   };
 
-  const onSendRequest = (): void => {};
+  const onSendRequest = (): void => {
+    const payload: LeaveRequestPayload = {
+      dateFrom: moment(dateFrom).format('YYYY-MM-DD'),
+      dateTo: moment(dateTo).format('YYYY-MM-DD'),
+      reason: reason,
+      workingTypeOptionId: workingType,
+    };
+
+    requestService.createLeaveRequest(payload).then(
+      (res: any) => {
+        console.log(res);
+        showToast();
+      },
+      (err: any) => {
+        console.log(err);
+        showToast();
+      },
+    );
+  };
+
   const onCancel = (): void => {};
+
+  const showToast = (): void => {
+    console.log('run');
+
+    toast.show({
+      render: () => {
+        return (
+          <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>
+            Hello! Have a nice day
+          </Box>
+        );
+      },
+    });
+  };
 
   return (
     <SafeAreaView style={styles.homeBg}>
@@ -135,13 +191,15 @@ function RequestScreen({navigation}: any): JSX.Element {
                 accessibilityLabel="Request Type"
                 placeholder="Working/Leave Type"
                 selectedValue={workingType}
-                onValueChange={(itemValue: string) => onChangeType(itemValue)}>
+                onValueChange={(itemValue: string) =>
+                  onChangeWorkingType(itemValue)
+                }>
                 {listWorkingType?.map((item: any) => (
                   <Select.Item
                     key={item.id}
                     color={'#ffffff'}
                     label={item.description}
-                    value={item.value}
+                    value={item.id}
                   />
                 ))}
               </Select>
@@ -159,11 +217,13 @@ function RequestScreen({navigation}: any): JSX.Element {
                     color="#42BFB0"
                   />
                 }
-                accessibilityLabel="Request Type"
+                accessibilityLabel="Working Type"
                 placeholder="Working Shift"
-                selectedValue={workingType}
-                onValueChange={(itemValue: string) => onChangeType(itemValue)}>
-                {listWorkingType?.map((item: any) => (
+                selectedValue={workingOptionType}
+                onValueChange={(itemValue: string) =>
+                  onChangeWorkingOption(itemValue)
+                }>
+                {listWorkingOptionType?.map((item: any) => (
                   <Select.Item
                     key={item.id}
                     color={'#ffffff'}
@@ -194,7 +254,7 @@ function RequestScreen({navigation}: any): JSX.Element {
                 />
                 {showDateFrom && (
                   <DateTimePicker
-                    testID="dateTimePicker"
+                    testID="dateFromPicker"
                     value={dateFrom}
                     mode={'date'}
                     is24Hour={true}
@@ -224,7 +284,7 @@ function RequestScreen({navigation}: any): JSX.Element {
                 />
                 {showDateTo && (
                   <DateTimePicker
-                    testID="dateTimePicker"
+                    testID="dateToPicker"
                     value={dateTo}
                     mode={'date'}
                     is24Hour={true}

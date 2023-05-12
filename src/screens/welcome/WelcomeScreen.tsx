@@ -70,6 +70,7 @@ function WelcomeScreen({navigation}: any): JSX.Element {
           </Center>
           <Button
             style={KitStyles.primaryBtn}
+            width={'80%'}
             endIcon={<ArrowForwardIcon />}
             onPress={() =>
               navigation.navigate('LoginScreen', {name: 'LoginScreen'})

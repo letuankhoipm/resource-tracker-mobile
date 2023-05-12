@@ -3,10 +3,16 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   primaryBtn: {
     marginTop: 10,
-    marginBottom: 10,
-    width: '80%',
     height: 45,
-    backgroundColor: '#007A52',
+    backgroundColor: '#42BFB0',
+  },
+
+  secondaryBtn: {
+    marginTop: 10,
+    height: 45,
+    backgroundColor: 'transparent',
+    borderColor: '#42BFB0',
+    color: '42BFB0',
   },
 
   textInsideBtn: {
@@ -19,5 +25,20 @@ export default StyleSheet.create({
   defaultInput: {
     fontSize: 14,
     color: '#ffffff',
+  },
+
+  defaultTitle: {
+    margin: 15,
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#ffffff',
+  },
+
+  btnWrapper: {
+    padding: 15,
+  },
+
+  iconWrapper: {
+    margin: 15,
   },
 });

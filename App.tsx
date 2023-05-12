@@ -10,6 +10,7 @@ import React from 'react';
 // import MainLayout from './src/layouts/main/MainLayout';
 import WelcomeScreen from './src/screens/welcome/WelcomeScreen';
 import LoginScreen from './src/screens/auth/LoginScreen';
+import NewRequestScreen from './src/screens/requests/NewRequestScreen';
 import MainLayout from './src/layouts/main/MainLayout';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -69,19 +70,11 @@ function App(): JSX.Element {
               <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
               <Stack.Screen name="LoginScreen" component={LoginScreen} />
               <Stack.Screen name="MainLayout" component={MainLayout} />
+              <Stack.Screen
+                name="NewRequestScreen"
+                component={NewRequestScreen}
+              />
             </Stack.Navigator>
-
-            {/* <SafeAreaView style={backgroundStyle}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}>
-          <Header />
-        </ScrollView>
-      </SafeAreaView> */}
           </NavigationContainer>
           {/* <MainLayout /> */}
         </NativeBaseProvider>

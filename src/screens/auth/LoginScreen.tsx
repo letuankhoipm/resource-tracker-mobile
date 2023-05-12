@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {ImageBackground, Text, View, StyleSheet, Pressable} from 'react-native';
 import {
-  SunIcon,
   Button,
   Center,
   Input,
@@ -13,6 +12,7 @@ import KitStyles from '../../styles/kit.style';
 import {actLogin} from '../../redux/actions/auth.action';
 import {LoginPayload} from '../../model/common/payload.model';
 import {useAppDispatch, useAppSelector} from '../../redux/hook';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface NavigationProps {
   navigation: any;
@@ -64,7 +64,11 @@ function LoginScreen({navigation}: NavigationProps): JSX.Element {
                 onChangeText={onChangePassword}
                 InputRightElement={
                   <Pressable onPress={() => setShow(!show)}>
-                    <SunIcon />
+                    <MaterialCommunityIcons
+                      name={!show ? 'eye-outline' : 'eye-off-outline'}
+                      size={20}
+                      color="#ffffff"
+                    />
                   </Pressable>
                 }
                 placeholder="Password"
@@ -72,16 +76,17 @@ function LoginScreen({navigation}: NavigationProps): JSX.Element {
             </Stack>
             ;
           </Center>
-          <Button style={KitStyles.primaryBtn} onPress={onLogin}>
+          <Button width={'80%'} style={KitStyles.primaryBtn} onPress={onLogin}>
             <Text style={KitStyles.textInsideBtn}>login</Text>
           </Button>
-          <Button
+          {/* <Button
+            width={'80%'}
             style={KitStyles.primaryBtn}
-            onPress={() => {
-              navigation.navigate('MainLayout', {name: 'MainLayout'});
-            }}>
-            <Text style={KitStyles.textInsideBtn}>test</Text>
-          </Button>
+            onPress={() =>
+              navigation.navigate('MainLayout', {name: 'MainLayout'})
+            }>
+            <Text style={KitStyles.textInsideBtn}>login</Text>
+          </Button> */}
           <Text style={styles.appDevBy}>DEVELOPED BY</Text>
           <Text style={styles.appSponsor}>
             qkit software © 2023 all rights reserved.

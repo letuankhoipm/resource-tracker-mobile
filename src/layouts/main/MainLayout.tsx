@@ -1,13 +1,12 @@
 import React from 'react';
-import {View, Pressable, Dimensions, StyleSheet} from 'react-native';
+import {View, Pressable, StyleSheet} from 'react-native';
 import HomeScreen from '../../screens/home/HomeScreen';
 import WelcomeScreen from '../../screens/welcome/WelcomeScreen';
+import RequestScreen from '../../screens/requests/RequestScreen';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Text} from 'native-base';
-
-const {width} = Dimensions.get('window');
 
 interface NavigationProps {
   navigation: any;
@@ -20,10 +19,10 @@ function generateLabel(name: string): string {
       return 'Home';
     case 'email-send-outline':
       return 'Request';
-    case 'account-outline':
-      return 'Profile';
     case 'cog-outline':
-      return 'Settings';
+      return 'Setting';
+    case 'bell-outline':
+      return 'Inform';
 
     default:
       return '';
@@ -86,8 +85,8 @@ function MainLayout(): JSX.Element {
         headerShown: false,
       }}>
       <Tab.Screen name="home-variant-outline" component={HomeScreen} />
-      <Tab.Screen name="email-send-outline" component={WelcomeScreen} />
-      <Tab.Screen name="account-outline" component={WelcomeScreen} />
+      <Tab.Screen name="email-send-outline" component={RequestScreen} />
+      <Tab.Screen name="bell-outline" component={WelcomeScreen} />
       <Tab.Screen name="cog-outline" component={WelcomeScreen} />
     </Tab.Navigator>
   );
@@ -99,8 +98,9 @@ const styles = StyleSheet.create({
     bottom: 20,
     backgroundColor: '#202938',
     borderRadius: 10,
-    marginHorizontal: width * 0.05,
+    marginHorizontal: 15,
   },
+
   mainItemContainer: {
     flex: 1,
     justifyContent: 'center',

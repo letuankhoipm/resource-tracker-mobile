@@ -1,3 +1,5 @@
+import {NavigationProp, ParamListBase} from '@react-navigation/native';
+
 export interface LoginPayload {
   CCCD: string;
   password: string;
@@ -36,3 +38,8 @@ export interface NotePayLoad {
   title: string;
   description: string;
 }
+
+export type Props = {
+  navigation: NavigationProp<ParamListBase>;
+  state: any;
+};

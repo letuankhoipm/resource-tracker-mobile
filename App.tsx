@@ -19,6 +19,7 @@ import {Provider} from 'react-redux';
 import {store, persistor} from './src/redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {NativeBaseProvider, extendTheme} from 'native-base';
+import RequestScreen from './src/screens/requests/NewRequestScreen';
 
 function App(): JSX.Element {
   const Stack = createNativeStackNavigator();
@@ -74,6 +75,7 @@ function App(): JSX.Element {
                 name="NewRequestScreen"
                 component={NewRequestScreen}
               />
+              <Stack.Screen name="RequestScreen" component={RequestScreen} />
             </Stack.Navigator>
           </NavigationContainer>
           {/* <MainLayout /> */}

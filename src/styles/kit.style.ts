@@ -12,11 +12,25 @@ export default StyleSheet.create({
     height: 45,
     backgroundColor: 'transparent',
     borderColor: '#42BFB0',
-    color: '42BFB0',
+    color: '#42BFB0',
   },
 
   textInsideBtn: {
     color: '#ffffff',
+    textTransform: 'uppercase',
+    fontSize: 13,
+    fontWeight: 'bold',
+  },
+
+  textInsideBtnPrimary: {
+    color: '#42BFB0',
+    textTransform: 'uppercase',
+    fontSize: 13,
+    fontWeight: 'bold',
+  },
+
+  textInsideBtnBlack: {
+    color: '#212121',
     textTransform: 'uppercase',
     fontSize: 13,
     fontWeight: 'bold',
@@ -40,5 +54,9 @@ export default StyleSheet.create({
 
   iconWrapper: {
     margin: 15,
+  },
+
+  strongText: {
+    fontWeight: 'bold',
   },
 });

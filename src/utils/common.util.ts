@@ -7,7 +7,7 @@ export function generateColor(status: STATUS): string {
     case STATUS.APPROVED:
       return 'success';
     case STATUS.PENDING:
-      return 'warning';
+      return 'info';
     case STATUS.REJECTED:
       return 'error';
 

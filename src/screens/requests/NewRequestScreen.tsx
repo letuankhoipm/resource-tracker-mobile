@@ -32,7 +32,7 @@ function RequestScreen({navigation}: any): JSX.Element {
   const [listWorkingType, setListWorkingType] = useState([]);
   const [listWorkingOptionType, setListWorkingOptionType] = useState([]);
   const [workingType, setWorkingType] = useState('ux');
-  const [workingOptionType, setWorkingOptionType] = useState('ux');
+  const [workingOptionTypeId, setWorkingOptionType] = useState('ux');
   const [dateFrom, setDateFrom] = useState(new Date());
   const [dateTo, setDateTo] = useState(new Date());
   const [showDateFrom, setShowDateFrom] = useState(false);
@@ -51,7 +51,6 @@ function RequestScreen({navigation}: any): JSX.Element {
       return;
     }
     referenceService.getRefsById('working-types', typeId).then((res: any) => {
-      console.log(res);
       setListWorkingOptionType(res.workingTypeOptions);
       setWorkingOptionType(res.workingTypeOptions[0]);
     });
@@ -98,8 +97,16 @@ function RequestScreen({navigation}: any): JSX.Element {
     }
   };
 
+  const onReset = () => {
+    setWorkingOptionType('');
+    setWorkingType('');
+    setReason('');
+    navigation.navigate('MainLayout', {name: 'MainLayout'});
+  };
+
   const onBack = (): void => {
-    navigation.goBack();
+    onReset();
+    navigation.navigate('MainLayout', {name: 'MainLayout'});
   };
 
   const onSendRequest = (): void => {
@@ -107,31 +114,30 @@ function RequestScreen({navigation}: any): JSX.Element {
       dateFrom: moment(dateFrom).format('YYYY-MM-DD'),
       dateTo: moment(dateTo).format('YYYY-MM-DD'),
       reason: reason,
-      workingTypeOptionId: workingType,
+      workingTypeOptionId: workingOptionTypeId,
     };
 
     requestService.createLeaveRequest(payload).then(
-      (res: any) => {
-        console.log(res);
-        showToast();
+      () => {
+        showToast('Request send successfully.');
+        onReset();
       },
-      (err: any) => {
-        console.log(err);
-        showToast();
+      () => {
+        showToast('Request send failed.');
       },
     );
   };
 
-  const onCancel = (): void => {};
+  const onCancel = (): void => {
+    onReset();
+  };
 
-  const showToast = (): void => {
-    console.log('run');
-
+  const showToast = (msg: string): void => {
     toast.show({
       render: () => {
         return (
-          <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>
-            Hello! Have a nice day
+          <Box bg="#ffffff" px="2" py="1" rounded="sm" mb={5}>
+            <Text style={KitStyles.strongText}>{msg}</Text>
           </Box>
         );
       },
@@ -219,7 +225,7 @@ function RequestScreen({navigation}: any): JSX.Element {
                 }
                 accessibilityLabel="Working Type"
                 placeholder="Working Shift"
-                selectedValue={workingOptionType}
+                selectedValue={workingOptionTypeId}
                 onValueChange={(itemValue: string) =>
                   onChangeWorkingOption(itemValue)
                 }>
@@ -228,7 +234,7 @@ function RequestScreen({navigation}: any): JSX.Element {
                     key={item.id}
                     color={'#ffffff'}
                     label={item.description}
-                    value={item.value}
+                    value={item.id}
                   />
                 ))}
               </Select>

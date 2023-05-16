@@ -1,4 +1,4 @@
-import {API_ENDPOINT} from '../../configs/auth';
+import {API_ENDPOINT} from '../../configs/env';
 import {HttpClientInterface} from './http-client.interface';
 import {HttpClientModel} from './http-client.model';
 

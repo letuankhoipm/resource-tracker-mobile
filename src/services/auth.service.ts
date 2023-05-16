@@ -1,4 +1,4 @@
-import {API_ENDPOINT} from '../configs/auth';
+import {API_ENDPOINT} from '../configs/env';
 import {HttpClient} from '../model/http-client/http-client';
 import {HttpRequestParamsInterface} from '../model/http-client/http-request-params.interface';
 import {LoginPayload} from '../model/common/payload.model';

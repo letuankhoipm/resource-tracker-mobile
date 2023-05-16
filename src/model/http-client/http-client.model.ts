@@ -6,7 +6,7 @@ import axios, {
 } from 'axios';
 import {HttpRequestParamsInterface} from './http-request-params.interface';
 import {HttpClientInterface} from './http-client.interface';
-import {DEFAULT_TOKEN_KEY} from '../../configs/auth';
+import {DEFAULT_TOKEN_KEY} from '../../configs/env';
 import {store} from '../../redux/index';
 
 type HttpClientOption = CreateAxiosDefaults;
@@ -24,6 +24,8 @@ export class HttpClientModel implements HttpClientInterface {
     const state = store.getState();
     const ACCESS_TOKEN = state.authReducer.token;
     const VALID_TOKEN_KEY = ACCESS_TOKEN || DEFAULT_TOKEN_KEY;
+    console.log(ACCESS_TOKEN);
+
     return VALID_TOKEN_KEY;
   }
 

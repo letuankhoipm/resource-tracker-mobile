@@ -1,9 +1,17 @@
-import {API_ENDPOINT} from '../configs/auth';
+import {API_ENDPOINT} from '../configs/env';
 import {LeaveRequestPayload} from '../model/common/payload.model';
 import {HttpClient} from '../model/http-client/http-client';
 import {HttpRequestParamsInterface} from '../model/http-client/http-request-params.interface';
 
 class RequestService {
+  public getMyLeaveRequests(): Promise<any> {
+    const params: HttpRequestParamsInterface = {
+      requiresToken: true,
+      url: `${API_ENDPOINT}/users/me/leave-requests`,
+    };
+    return HttpClient.get(params);
+  }
+
   public getLeaveRequests(pageNumber: number, pageSize: number): Promise<any> {
     const params: HttpRequestParamsInterface = {
       requiresToken: true,

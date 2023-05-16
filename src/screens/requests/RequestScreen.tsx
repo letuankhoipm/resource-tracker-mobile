@@ -28,7 +28,7 @@ function RequestScreen({navigation}: any): JSX.Element {
   const [listRequest, setListRequest] = useState([]);
 
   const getListRequest = (): void => {
-    requestService.getLeaveRequests(1, 10).then((res: any) => {
+    requestService.getMyLeaveRequests().then((res: any) => {
       setListRequest(res.items);
     });
   };
@@ -125,6 +125,7 @@ function RequestScreen({navigation}: any): JSX.Element {
           ))}
         </Box>
       </ScrollView>
+      <Box style={styles.divider} />
     </SafeAreaView>
   );
 }
@@ -178,6 +179,10 @@ const styles = StyleSheet.create({
   },
 
   leaveOwner: {fontSize: 12, color: '#42BFB0'},
+
+  divider: {
+    height: 135,
+  },
 });
 
 export default RequestScreen;

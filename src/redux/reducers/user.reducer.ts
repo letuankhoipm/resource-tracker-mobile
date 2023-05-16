@@ -8,7 +8,6 @@ const userReducer: Reducer = (state = initialState, action: ActionRedux) => {
   switch (type) {
     case GET_USER_SUCCESS:
       return {
-        ...state,
         userDetail: payload,
       };
 

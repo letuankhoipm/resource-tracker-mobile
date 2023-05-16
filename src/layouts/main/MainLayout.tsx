@@ -7,6 +7,7 @@ import RequestScreen from '../../screens/requests/RequestScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Text} from 'native-base';
+import SettingScreen from '../../screens/settings/SettingScreen';
 
 interface NavigationProps {
   navigation: any;
@@ -87,7 +88,7 @@ function MainLayout(): JSX.Element {
       <Tab.Screen name="home-variant-outline" component={HomeScreen} />
       <Tab.Screen name="email-send-outline" component={RequestScreen} />
       <Tab.Screen name="bell-outline" component={WelcomeScreen} />
-      <Tab.Screen name="cog-outline" component={WelcomeScreen} />
+      <Tab.Screen name="cog-outline" component={SettingScreen} />
     </Tab.Navigator>
   );
 }
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     backgroundColor: '#202938',
-    borderRadius: 10,
+    borderRadius: 7,
     marginHorizontal: 15,
   },
 

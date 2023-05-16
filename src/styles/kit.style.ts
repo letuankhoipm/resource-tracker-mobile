@@ -59,4 +59,8 @@ export default StyleSheet.create({
   strongText: {
     fontWeight: 'bold',
   },
+
+  divider: {
+    height: 135,
+  },
 });

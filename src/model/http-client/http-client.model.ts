@@ -24,8 +24,6 @@ export class HttpClientModel implements HttpClientInterface {
     const state = store.getState();
     const ACCESS_TOKEN = state.authReducer.token;
     const VALID_TOKEN_KEY = ACCESS_TOKEN || DEFAULT_TOKEN_KEY;
-    console.log(ACCESS_TOKEN);
-
     return VALID_TOKEN_KEY;
   }
 

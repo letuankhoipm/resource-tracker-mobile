@@ -22,8 +22,11 @@ import {generateColor} from '../../utils/common.util';
 function RequestScreen({navigation}: any): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    getListRequest();
-  }, [dispatch]);
+    const unsubscribe = navigation.addListener('focus', () => {
+      getListRequest();
+    });
+    return unsubscribe;
+  }, [dispatch, navigation]);
 
   const [listRequest, setListRequest] = useState([]);
 

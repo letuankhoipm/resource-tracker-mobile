@@ -48,7 +48,9 @@ function WelcomeScreen(): JSX.Element {
                   {userDetail?.fullName}
                 </Text>
                 <Text style={styles.userTitle} color="#ffffff">
-                  {userDetail?.positions[0].description}
+                  {userDetail?.positions
+                    ? userDetail?.positions[0].description
+                    : ''}
                 </Text>
               </Box>
             </Center>
@@ -189,6 +191,7 @@ function WelcomeScreen(): JSX.Element {
             </Box>
           </HStack>
         </Box>
+        <Box style={KitStyles.divider} />
       </ScrollView>
     </SafeAreaView>
   );
